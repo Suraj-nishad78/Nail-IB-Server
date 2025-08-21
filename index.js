@@ -10,6 +10,7 @@ const app = express();
 //import Routes 
 import usersRoutes  from './src/features/users/user.routes.js'
 import eduRoutes  from "./src/features/educators/educaters.routes.js"
+import testRoutes  from "./src/features/testmonials/testmonials.routes.js"
 
 //functions
 import {connectDatabase}  from './src/database/mongoDb.js'
@@ -23,6 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //Routes 
 app.use("/api/users", usersRoutes)
 app.use("/api/educators", eduRoutes)
+app.use("/api/testmonials", testRoutes)
 
 app.get("/",(req, res)=>{
     res.send("Hello world! who hi")

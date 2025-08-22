@@ -37,7 +37,7 @@ app.use((req, res, next) => {
   });
 });
 
-app.listen(4000, ()=>{
+app.listen(process.env.PORT, ()=>{
     console.log("Server is running on 4000")
     connectDatabase()
 })

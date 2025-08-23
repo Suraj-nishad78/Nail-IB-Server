@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+// Testmonials Schema
 export const testmonialsSchema = new mongoose.Schema({
   name: {
     type: String,

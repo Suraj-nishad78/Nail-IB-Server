@@ -1,7 +1,9 @@
+// imports package 
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 import * as userRepo from "./user.repositoy.js";
 
+//signup method 
 const signupUser = async (req, res, next) => {
   try {
     const { name, email, username, password } = req.body;
@@ -12,6 +14,8 @@ const signupUser = async (req, res, next) => {
       username:username.toLowerCase(),
       password: encryptPassword,
     };
+
+    //to check user email exist or not 
     const emailExist = await userRepo.signin(email.toLowerCase());
     if (emailExist) {
       return res
@@ -19,6 +23,7 @@ const signupUser = async (req, res, next) => {
         .json({ error: "Email already exist!" });
     }
 
+    //thow an error when signup failed
     const user = await userRepo.signup(newUser);
     if (!user) {
       return res
@@ -26,6 +31,7 @@ const signupUser = async (req, res, next) => {
         .json({ error: "User sign up failed. Please try again!" });
     }
 
+    //response user successfully signup
     res.status(201).json({
       status: "Success",
       msg: "User sign up successfully!",
@@ -39,25 +45,30 @@ const signupUser = async (req, res, next) => {
   }
 };
 
+//user login method
 const loginUser = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const user = await userRepo.signin(email.toLowerCase());
 
+    //throw an error email doesn't exist 
     if (!user) {
       return res.status(400).json({ error: "Email not found!" });
     }
 
     const checkPassword = await bcrypt.compare(password, user.password);
 
+    //password doesn't match with data
     if (!checkPassword) {
       return res.status(400).json({ error: "Invalid password!" });
     }
 
+    //token generation
     const token = jwt.sign(user.toJSON(), process.env.PRIVATE_KEY, {
       expiresIn: "10m",
     });
 
+    //response successfully login
     res
       .cookie("jwtToken", token, { httpOnly: true, maxAge: 10 * 60 * 1000 })
       .status(200)
@@ -72,6 +83,7 @@ const loginUser = async (req, res, next) => {
   }
 };
 
+//logout method
 const logoutUser = (req, res, next) => {
   try {
     const { jwtToken } = req.cookies;
@@ -88,6 +100,7 @@ const logoutUser = (req, res, next) => {
   }
 };
 
+//get all user details
 const allUsers = async (req, res, next) => {
   try {
     const users = await userRepo.getUsers();
@@ -110,12 +123,12 @@ const allUsers = async (req, res, next) => {
   }
 };
 
+//get a user detail method
 const getUserDetails = async (req, res, next) => {
   try {
     const { userId } = req.params;
     const user = await userRepo.findOneUser(userId);
     if (!user) {
-      // throw new customErrorHandler(404, "No user found!")
       return res.status(400).json({
         status: 404,
         message: "No user found!",

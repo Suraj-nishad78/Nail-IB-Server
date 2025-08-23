@@ -1,12 +1,12 @@
 import express  from 'express'
 
-import {postTest, getTest, datafeeding} from "./testmonials.controller.js"
-
+//method import
+import {postTest, getTest} from "./testmonials.controller.js"
 
 const router = express.Router()
 
+//route for tesmonials
 router.post("/post", postTest)
-router.post("/allpostdata", datafeeding)
 router.get("/fetch",  getTest)
 
 export default router;

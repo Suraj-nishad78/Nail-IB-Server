@@ -1,6 +1,7 @@
 
 import mongoose from "mongoose"
 
+//User schema declaration 
 export const userSchema = new mongoose.Schema({
     name:{
         type:String,

@@ -1,5 +1,6 @@
 import * as testRepo from "./testmonials.repository.js";
 
+//post testmonials method
 const postTest = async (req, res) => {
   try {
     const { name, comment, imageURL } = req.body;
@@ -25,6 +26,7 @@ const postTest = async (req, res) => {
   }
 };
 
+//get all testmonials from mongodb
 const getTest = async (req, res) => {
   try {
     const result = await testRepo.getTestmonials();
@@ -44,54 +46,4 @@ const getTest = async (req, res) => {
   }
 };
 
-const datafeeding = async (req, res) => {
-  try {
-    const data = [
-      {
-        name:"Amora Lindsey",
-        comment:"As an IB student, I've experienced the intense pressure and stress that comes with the program.",
-        imageURL:"https://spaces-cdn.nailib.com/testimonials/Amora%20Lindsey/ib-student-studying.jpg?w=1920&q=75"
-      },
-      {
-        name:"Ainsley Cook",
-        comment:"Nail IB, the indispensable study partner every student needs! Speaking from experience, I can confide...",
-        imageURL:"https://spaces-cdn.nailib.com/testimonials/Ainsley%20Cook/ib-student-notes.jpeg?w=1920&q=75"
-      },
-      {
-        name:"Katie Mills",
-        comment:"Feeling overwhelmed in the IB program is normal, but Nail IB was my guiding light that transformed my...",
-        imageURL:"https://spaces-cdn.nailib.com/testimonials/Katie%20Mills/ib-student-reading-ib-notes.jpeg?w=1920&q=75"
-      },
-      {
-        name:"Hazel Barnes",
-        comment:"I'm here to share my secret ally during this challenging IB journey: Nail IB has been my lifeline...",
-        imageURL:"https://spaces-cdn.nailib.com/testimonials/Hazel%20Barnes/ib-student-studying.jpg?w=1920&q=75"
-      },
-      {
-        name:"Erik Briggs",
-        comment:"As a fellow IB student, I wholeheartedly recommend Nail IB! This platform's video tutorials and s...",
-        imageURL:"https://spaces-cdn.nailib.com/testimonials/Erik%20Briggs/ib-student-watching-nail-ib-videos.jpg?w=1920&q=75"
-      },
-      {
-        name:"Lyla Rogers",
-        comment:"Discovering Nail IB has been a game-changer during my International Baccalaureate (IB) Diploma adventure! T...",
-        imageURL:"https://spaces-cdn.nailib.com/testimonials/Lyla%20Rogers/ib-student-in-library.jpeg?w=1920&q=75"
-      },
-    ];
-    for (const item of data) {
-      // Assuming "data" is defined somewhere
-      const { name, comment, imageURL } = item;
-      await testRepo.addTestmonials({ name, comment, imageURL });
-    }
-
-    res.status(201).json({
-      status: "Success",
-      msg: "Data fed successfully!",
-    });
-  } catch (err) {
-    console.error("Error in datafeeding:", err);
-    res.status(500).json({ error: "Failed to feed data!" });
-  }
-};
-
-export { postTest, getTest, datafeeding };
+export { postTest, getTest };

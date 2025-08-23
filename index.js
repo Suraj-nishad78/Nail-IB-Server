@@ -12,7 +12,7 @@ import usersRoutes  from './src/features/users/user.routes.js'
 import eduRoutes  from "./src/features/educators/educaters.routes.js"
 import testRoutes  from "./src/features/testmonials/testmonials.routes.js"
 
-//functions
+//Databse function 
 import {connectDatabase}  from './src/database/mongoDb.js'
 
 //middleware
@@ -26,10 +26,12 @@ app.use("/api/users", usersRoutes)
 app.use("/api/educators", eduRoutes)
 app.use("/api/testmonials", testRoutes)
 
+//dummy route
 app.get("/",(req, res)=>{
     res.send("Hello world! who hi")
 })
 
+//Route for throw an error route doesn't exist
 app.use((req, res, next) => {
   res.status(404).json({
     success: false,
@@ -37,6 +39,7 @@ app.use((req, res, next) => {
   });
 });
 
+//Listen method
 app.listen(process.env.PORT, ()=>{
     console.log("Server is running on 4000")
     connectDatabase()

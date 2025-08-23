@@ -1,12 +1,13 @@
 import express  from 'express'
 
-import {postEdu, getEdu, datafeeding} from "./educaters.controller.js"
+//Method imports
+import {postEdu, getEdu} from "./educaters.controller.js"
 
 
 const router = express.Router()
 
+//routes for educators
 router.post("/post", postEdu)
-router.post("/allpostdata", datafeeding)
 router.get("/fetch",  getEdu)
 
 export default router;

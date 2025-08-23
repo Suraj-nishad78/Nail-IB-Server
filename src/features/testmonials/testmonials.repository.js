@@ -1,8 +1,10 @@
 import mongoose from "mongoose";
 import { testmonialsSchema } from "./testmonials.schema.js";
 
+//model for testmonials
 export const TestmonialsModel = mongoose.model("Testmonials", testmonialsSchema);
 
+//add testmonials mongodb method
 const addTestmonials = async (testData) => {
   try {
     const result = await TestmonialsModel.create(testData);
@@ -13,6 +15,7 @@ const addTestmonials = async (testData) => {
   }
 };
 
+//get testmonials mongodb method
 const getTestmonials = async () => {
   try {
     return await TestmonialsModel.find({}).lean();

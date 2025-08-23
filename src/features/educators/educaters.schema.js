@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 
+// Educators Schema
 export const educatorsSchema = new mongoose.Schema({
   name: {
     type: String,

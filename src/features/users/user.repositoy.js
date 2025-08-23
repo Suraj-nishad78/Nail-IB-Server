@@ -3,16 +3,18 @@ import {userSchema} from "./user.schema.js"
 
 export const UserModel = mongoose.model("User", userSchema)
 
+//signup methood for user
 const signup = async (newUser) =>{
-   try{
-       const user =  await UserModel.create(newUser)
-       return user;
-   } catch(err){
-    console.log("Error while creating", err);
-   }
-
+    try{
+        const user =  await UserModel.create(newUser)
+        return user;
+    } catch(err){
+        console.log("Error while creating", err);
+    }
+    
 }
 
+//signin methood for user
 const signin = async (email) =>{
     try{
         const user = await UserModel.findOne({email})
@@ -22,11 +24,13 @@ const signin = async (email) =>{
     }
 }
 
+//get all user details method
 const getUsers = async () =>{
    const users = await UserModel.find({}, {password:0, loggers:0})
    return users;
 }
 
+//find user method
 const findOneUser = async (userId) =>{
     try{
         const _id = userId;

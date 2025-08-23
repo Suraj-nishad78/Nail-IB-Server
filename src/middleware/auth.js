@@ -1,8 +1,9 @@
-
+//Import package
 import jwt from 'jsonwebtoken'
 
 import {UserModel} from "../features/users/user.repositoy.js"
 
+//auth middleware method 
 const isLoggedIn = async (req, res, next) =>{
     try{
         const token = req.cookies?.jwtToken;
@@ -15,7 +16,6 @@ const isLoggedIn = async (req, res, next) =>{
         }
         
         const user = jwt.verify(token, process.env.PRIVATE_KEY)
-        // const checkUser = await UserModel.findOne({loggers:token})
         const checkUser = await UserModel.findOne({_id:user._id})
         
         if(!checkUser){
